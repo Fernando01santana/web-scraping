@@ -6,34 +6,39 @@ import json
 import xmltojson
 from selenium.webdriver.common.by import By
 import time
+import pandas as pd
 
 
-utl_base = 'https://play.google.com/store/search?q=COD'
-driver = webdriver.Chrome(
-    executable_path='C:/Users/coolf/AppData/Local/chromedriver.exe')
-driver.get(utl_base)
+with open('apps.json', 'r') as json_file:
+    apps = json.load(json_file)
 
-time.sleep(2)
-# apps = driver.find_elements_by_class_name('Ktdaqe')
-driver.find_element_by_class_name('nnK0zc').click()
-time.sleep(2)
-driver.find_element(By.CLASS_NAME, 'XnFhVd').click()
-time.sleep(3)
+contApp = len(apps)
+print(contApp)
+for a in range(0, contApp):
+    utl_base = 'https://play.google.com/store/search?q='+apps[a]
+    driver = webdriver.Chrome(
+        executable_path='C:/Users/coolf/AppData/Local/chromedriver.exe')
+    driver.get(utl_base)
 
-comments = driver.find_elements_by_class_name('UD7Dzf')
-site = []
+    time.sleep(2)
+    # apps = driver.find_elements_by_class_name('Ktdaqe')
+    driver.find_element_by_class_name('nnK0zc').click()
+    time.sleep(2)
+    driver.find_element(By.CLASS_NAME, 'XnFhVd').click()
+    time.sleep(3)
 
-cont = len(comments)
-for c in range(0, cont):
-    commentVerify = str(BeautifulSoup(comments[c].text, 'html.parser'))
-    if commentVerify != "":
-        item = u" "+str(BeautifulSoup(comments[c].text, 'html.parser'))
-        decoded = item.encode(
-            'ascii', 'ignore').decode('ascii')
-        site.append({f"comentario-{c}": decoded})
+    comments = driver.find_elements_by_class_name('UD7Dzf')
 
-driver.quit()
-contComments = len(site)
-with open('data.json', 'w', encoding='utf-8') as jp:
-    for count in range(0, contComments):
-        jp.write(json.dumps(site[count], indent=4))
+    site = []
+
+    cont = len(comments)
+    for c in range(0, cont):
+        commentVerify = str(BeautifulSoup(comments[c].text, 'html.parser'))
+        if commentVerify != "":
+            item = BeautifulSoup(comments[c].text, 'html.parser')
+            site.append([apps[a], str(item)])
+
+    siteDatFrame = pd.DataFrame(site, columns=['app', 'comment'])
+
+    driver.quit()
+    siteDatFrame.to_excel('comments-'+apps[a]+'.xlsx', index='false')
