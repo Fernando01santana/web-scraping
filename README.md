@@ -1,4 +1,6 @@
-web-scrapping em Python
+<h1 align="center">Oi 👋, eu sou pyGetComments</h1>
+<h3 align="center">Minha funcionalidade é capturar todos os comentários de um determinado aplicativo preparar exportar em um arquivo excel</h3>
 
-observe que no projeto tem um arquivo chamado apps.json, insira dentro dele o nome dos apps que você irá usar, caso retorne o comentario de um App com nome semlhante 
-utilize o id do aplicativo no parametro da url da pagina de download do mesmo.
+
+<h3 align="left">Languages and Tools:</h3>
+<p align="left"> <a href="https://www.python.org" target="_blank"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" alt="python" width="40" height="40"/> </a> </p>
