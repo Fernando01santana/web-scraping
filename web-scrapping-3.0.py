@@ -14,20 +14,26 @@ driver = webdriver.Chrome(
 driver.get(utl_base)
 
 time.sleep(2)
-apps = driver.find_elements_by_class_name('Ktdaqe')
+# apps = driver.find_elements_by_class_name('Ktdaqe')
 driver.find_element_by_class_name('nnK0zc').click()
 time.sleep(2)
+driver.find_element(By.CLASS_NAME, 'XnFhVd').click()
+time.sleep(3)
 
 comments = driver.find_elements_by_class_name('UD7Dzf')
 site = []
 
 cont = len(comments)
 for c in range(0, cont):
-    site.append(
-        str({f'comment {c}': BeautifulSoup(comments[c].text, 'html.parser')}))
+    commentVerify = str(BeautifulSoup(comments[c].text, 'html.parser'))
+    if commentVerify != "":
+        item = u" "+str(BeautifulSoup(comments[c].text, 'html.parser'))
+        decoded = item.encode(
+            'ascii', 'ignore').decode('ascii')
+        site.append({f"comentario-{c}": decoded})
 
-print(site[0])
 driver.quit()
+contComments = len(site)
 with open('data.json', 'w', encoding='utf-8') as jp:
-    js = json.dumps(site[0], indent=4)
-    jp.write(js)
+    for count in range(0, contComments):
+        jp.write(json.dumps(site[count], indent=4))
