@@ -21,12 +21,10 @@ for a in range(0, contApp):
     driver.get(utl_base)
 
     time.sleep(2)
-    # apps = driver.find_elements_by_class_name('Ktdaqe')
     driver.find_element_by_class_name('nnK0zc').click()
     time.sleep(2)
     driver.find_element(By.CLASS_NAME, 'XnFhVd').click()
     time.sleep(3)
-
     comments = driver.find_elements_by_class_name('UD7Dzf')
 
     site = []
@@ -38,7 +36,8 @@ for a in range(0, contApp):
             item = BeautifulSoup(comments[c].text, 'html.parser')
             site.append([apps[a], str(item)])
 
-    siteDatFrame = pd.DataFrame(site, columns=['app', 'comment'])
+    siteDatFrame = pd.DataFrame(
+        site, columns=['Search_term ', 'Comment'])
 
     driver.quit()
     siteDatFrame.to_excel('comments-'+apps[a]+'.xlsx', index='false')
