@@ -13,11 +13,10 @@ with open('apps.json', 'r') as json_file:
     apps = json.load(json_file)
 
 contApp = len(apps)
-print(contApp)
 for a in range(0, contApp):
     utl_base = 'https://play.google.com/store/search?q='+apps[a]
-    driver = webdriver.Chrome(
-        executable_path='C:/Users/coolf/AppData/Local/chromedriver.exe')
+    driver = webdriver.Edge(
+        executable_path='C:/Users/coolf/AppData/Local/edge/msedgedriver.exe')
     driver.get(utl_base)
 
     time.sleep(2)
